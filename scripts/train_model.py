@@ -28,3 +28,9 @@ mae = mean_absolute_error(y_test, predictions)
 
 print(f"R² score: {r2:.3f}")
 print(f"Mean Absolute Error: {mae:,.2f} EUR")
+
+import joblib
+
+# Ruaj modelin e trajnuar
+joblib.dump(model, "models/price_model.joblib")
+print("Modeli u ruajt te models/price_model.joblib")
