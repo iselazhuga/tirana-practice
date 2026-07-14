@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error
@@ -28,6 +29,17 @@ mae = mean_absolute_error(y_test, predictions)
 
 print(f"R² score: {r2:.3f}")
 print(f"Mean Absolute Error: {mae:,.2f} EUR")
+
+# Trajno edhe një Random Forest për krahasim
+rf_model = RandomForestRegressor(random_state=42)
+rf_model.fit(X_train, y_train)
+rf_predictions = rf_model.predict(X_test)
+
+rf_r2 = r2_score(y_test, rf_predictions)
+rf_mae = mean_absolute_error(y_test, rf_predictions)
+
+print(f"\nRandom Forest R² score: {rf_r2:.3f}")
+print(f"Random Forest Mean Absolute Error: {rf_mae:,.2f} EUR")
 
 import joblib
 
