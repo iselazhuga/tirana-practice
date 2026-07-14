@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -46,3 +47,20 @@ import joblib
 # Ruaj modelin e trajnuar
 joblib.dump(model, "models/price_model.joblib")
 print("Modeli u ruajt te models/price_model.joblib")
+# Grafik: çmimet reale vs të parashikuara (Linear Regression)
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, predictions, color="steelblue", edgecolor="black", alpha=0.7)
+plt.plot(
+    [y_test.min(), y_test.max()],
+    [y_test.min(), y_test.max()],
+    color="red", linestyle="--", label="Parashikim perfekt"
+)
+plt.title("Çmimi Real vs Çmimi i Parashikuar")
+plt.xlabel("Çmimi Real (EUR)")
+plt.ylabel("Çmimi i Parashikuar (EUR)")
+plt.legend()
+plt.tight_layout()
+plt.savefig("output/predicted_vs_actual.png")
+plt.close()
+
+print("U ruajt grafiku te output/predicted_vs_actual.png")
