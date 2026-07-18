@@ -4,6 +4,26 @@
     <title>Tirana Deal Finder</title>
 </head>
 <body>
-    <h1>Hello, {{ city }}!</h1>
+    <h1>Tirana Apartments</h1>
+    <table border="1">
+        <tr>
+            <th>Price</th>
+            <th>Sqm</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>Floor</th>
+            <th>Neighborhood</th>
+        </tr>
+        {% for listing in listings %}
+        <tr>
+            <td>{{ listing.price }}</td>
+            <td>{{ listing.sqm }}</td>
+            <td>{{ listing.bedrooms }}</td>
+            <td>{{ listing.bathrooms }}</td>
+            <td>{{ listing.floor }}</td>
+            <td>{{ listing.neighborhood }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
