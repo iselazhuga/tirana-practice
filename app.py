@@ -74,5 +74,15 @@ def analytics():
     stats = compute_analytics()
     return render_template("analytics.html", stats=stats)
 
+@app.route("/map")
+def map_view():
+    df = pd.read_csv("data/apartments.csv")
+    listings = df.to_dict(orient="records")
+    for listing in listings:
+        lat, lng = get_coordinates(listing["neighborhood"])
+        listing["lat"] = lat
+        listing["lng"] = lng
+    return render_template("map.html", listings=listings)
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map - Tirana Deal Finder</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 600px; }
+    </style>
+</head>
+<body>
+    <h1>Tirana Listings Map</h1>
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map').setView([41.3275, 19.8187], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const listings = {{ listings | tojson }};
+
+        listings.forEach(listing => {
+            L.marker([listing.lat, listing.lng])
+                .addTo(map)
+                .bindPopup(`Price: ${listing.price} EUR<br>Neighborhood: ${listing.neighborhood}`);
+        });
+    </script>
+</body>
+</html>
