@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics - Tirana Deal Finder</title>
+</head>
+<body>
+    <h1>Market Analytics</h1>
+    <p>Average Price: {{ stats.avg_price }} EUR</p>
+    <p>Average Price per Sqm: {{ stats.avg_ppsqm }} EUR/m²</p>
+
+    <h2>Listings by Bedroom Count</h2>
+    <ul>
+        {% for bedrooms, count in stats.by_bedrooms.items() %}
+        <li>{{ bedrooms }} bedrooms: {{ count }} listings</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

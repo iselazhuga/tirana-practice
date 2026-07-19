@@ -69,5 +69,10 @@ def good_deals():
     listings = good_deals_df.to_dict(orient="records")
     return render_template("index.html", listings=listings)
 
+@app.route("/analytics")
+def analytics():
+    stats = compute_analytics()
+    return render_template("analytics.html", stats=stats)
+
 if __name__ == "__main__":
     app.run(debug=True)
