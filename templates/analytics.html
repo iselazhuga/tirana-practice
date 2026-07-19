@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Analytics - Tirana Deal Finder</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Market Analytics</h1>
@@ -9,10 +10,23 @@
     <p>Average Price per Sqm: {{ stats.avg_ppsqm }} EUR/m²</p>
 
     <h2>Listings by Bedroom Count</h2>
-    <ul>
-        {% for bedrooms, count in stats.by_bedrooms.items() %}
-        <li>{{ bedrooms }} bedrooms: {{ count }} listings</li>
-        {% endfor %}
-    </ul>
+    <canvas id="bedroomChart" width="400" height="200"></canvas>
+
+    <script>
+        const labels = {{ stats.by_bedrooms.keys() | list | tojson }};
+        const data = {{ stats.by_bedrooms.values() | list | tojson }};
+
+        new Chart(document.getElementById('bedroomChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Listings',
+                    data: data,
+                    backgroundColor: '#2980b9'
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
