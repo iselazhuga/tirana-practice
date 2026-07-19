@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Tirana Deal Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Tirana Apartments</h1>
@@ -16,7 +17,7 @@
         </tr>
         {% for listing in listings %}
         <tr>
-            <td>{{ listing.price }}</td>
+            <td><a href="/listing/{{ loop.index0 }}">{{ listing.price }}</a></td>
             <td>{{ listing.sqm }}</td>
             <td>{{ listing.bedrooms }}</td>
             <td>{{ listing.bathrooms }}</td>
