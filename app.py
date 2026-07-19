@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import pandas as pd
+import joblib
 
 app = Flask(__name__)
 
@@ -13,7 +14,17 @@ def home():
 def listing_detail(listing_id):
     df = pd.read_csv("data/apartments.csv")
     listing = df.iloc[listing_id].to_dict()
-    return render_template("listing.html", listing=listing)
+
+    model = joblib.load("models/price_model.joblib")
+    features = pd.DataFrame([{
+        "sqm": listing["sqm"],
+        "bedrooms": listing["bedrooms"],
+        "bathrooms": listing["bathrooms"],
+        "floor": listing["floor"]
+    }])
+    predicted_price = model.predict(features)[0]
+
+    return render_template("listing.html", listing=listing, predicted_price=predicted_price)
 
 @app.route("/good-deals")
 def good_deals():

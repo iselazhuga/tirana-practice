@@ -6,6 +6,7 @@
 <body>
     <h1>Apartment Details</h1>
     <p>Price: {{ listing.price }}</p>
+    <p>Predicted Price: {{ predicted_price | round(2) }}</p>
     <p>Sqm: {{ listing.sqm }}</p>
     <p>Bedrooms: {{ listing.bedrooms }}</p>
     <p>Bathrooms: {{ listing.bathrooms }}</p>
