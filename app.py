@@ -15,5 +15,14 @@ def listing_detail(listing_id):
     listing = df.iloc[listing_id].to_dict()
     return render_template("listing.html", listing=listing)
 
+@app.route("/good-deals")
+def good_deals():
+    df = pd.read_csv("data/apartments.csv")
+    df["price_per_sqm"] = df["price"] / df["sqm"]
+    avg_ppsqm = df["price_per_sqm"].mean()
+    good_deals_df = df[df["price_per_sqm"] < avg_ppsqm]
+    listings = good_deals_df.to_dict(orient="records")
+    return render_template("index.html", listings=listings)
+
 if __name__ == "__main__":
     app.run(debug=True)
