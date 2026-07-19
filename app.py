@@ -23,6 +23,21 @@ TIRANA_CENTER = (41.3275, 19.8187)
 def get_coordinates(neighborhood):
     return NEIGHBORHOOD_COORDS.get(neighborhood, TIRANA_CENTER)
 
+def compute_analytics():
+    df = pd.read_csv("data/apartments.csv")
+    df["price_per_sqm"] = df["price"] / df["sqm"]
+
+    avg_price = df["price"].mean()
+    avg_ppsqm = df["price_per_sqm"].mean()
+
+    by_bedrooms = df.groupby("bedrooms").size().to_dict()
+
+    return {
+        "avg_price": round(avg_price, 2),
+        "avg_ppsqm": round(avg_ppsqm, 2),
+        "by_bedrooms": by_bedrooms
+    }
+
 @app.route("/")
 def home():
     df = pd.read_csv("data/apartments.csv")
