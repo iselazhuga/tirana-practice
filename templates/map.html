@@ -26,8 +26,18 @@
 
         const listings = {{ listings | tojson }};
 
+        const avgPpsqm = listings.reduce((sum, l) => sum + (l.price / l.sqm), 0) / listings.length;
+
         listings.forEach(listing => {
-            L.marker([listing.lat, listing.lng])
+            const ppsqm = listing.price / listing.sqm;
+            const color = ppsqm < avgPpsqm ? "green" : "red";
+
+            L.circleMarker([listing.lat, listing.lng], {
+                radius: 8,
+                color: color,
+                fillColor: color,
+                fillOpacity: 0.7
+            })
                 .addTo(map)
                 .bindPopup(`Price: ${listing.price} EUR<br>Neighborhood: ${listing.neighborhood}`);
         });
