@@ -33,5 +33,24 @@
             }
         });
     </script>
+
+    <h2>Price Distribution</h2>
+    <canvas id="priceHistogram" width="400" height="200"></canvas>
+
+    <script>
+        const prices = {{ stats.prices | tojson }};
+
+        new Chart(document.getElementById('priceHistogram'), {
+            type: 'bar',
+            data: {
+                labels: prices.map((p, i) => i + 1),
+                datasets: [{
+                    label: 'Price (EUR)',
+                    data: prices,
+                    backgroundColor: '#e67e22'
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
